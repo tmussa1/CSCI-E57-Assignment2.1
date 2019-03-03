@@ -1,0 +1,6 @@
+version: '2'
+services:
+  assets-service:
+      image: tofikmussa/assets-service:assignment1.2
+      ports:
+        - "8080:8080"
