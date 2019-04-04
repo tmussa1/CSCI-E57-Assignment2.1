@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from com.thoughtmechanix.assets.repository -->
+        <relativePath/> <!-- lookup parent from com.thoughtmechanix.eureka.repository -->
     </parent>
     <groupId>com.thoughtmechanix.assets</groupId>
     <artifactId>assets-service</artifactId>
@@ -18,9 +18,9 @@
         <java.version>1.8</java.version>
         <spring-cloud-services.version>2.1.0.RELEASE</spring-cloud-services.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-        <start-class>com.thoughtmechanix.assets.AssetsServiceApplication</start-class>
+        <start-class>com.thoughtmechanix.eureka.AssetsServiceApplication</start-class>
         <docker.image.name>tofikmussa/assets-service</docker.image.name>
-        <docker.image.tag>assignment1.2</docker.image.tag>
+        <docker.image.tag>assignment2.1</docker.image.tag>
     </properties>
 
     <dependencies>
@@ -36,10 +36,27 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
 
