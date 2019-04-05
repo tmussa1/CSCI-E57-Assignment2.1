@@ -6,8 +6,8 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 3
-  serviceUrl:
-    defaultZone: http://192.168.99.100:8761/
+    serviceUrl:
+      defaultZone: http://192.168.99.100:8761/
 spring:
   application:
     name: eurekasvr
