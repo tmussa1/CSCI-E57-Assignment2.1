@@ -1,27 +1,16 @@
-package com.thoughtmechanix.company.model;
+package com.thoughtmechanix.eureka.model;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-@Table(name = "companys" , schema="assets_service_db")
-@Entity
 public class Company {
 
-    @Id
-    @Column(name= "company_id", nullable= false)
     private String companyId;
-
-    @Column(name = "company_name", nullable= false)
     private String companyName;
-
-    @Column(name = "year_established")
     private String yearEstablished;
-
-    @Column(name = "number_of_employees")
     private Integer numOfEmployees;
-
-    @Column(name = "capital")
     private double capital;
 
     public Company() {

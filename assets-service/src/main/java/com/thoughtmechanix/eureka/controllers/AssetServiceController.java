@@ -2,6 +2,7 @@ package com.thoughtmechanix.eureka.controllers;
 
 import com.thoughtmechanix.eureka.model.Asset;
 import com.thoughtmechanix.eureka.model.AssetType;
+import com.thoughtmechanix.eureka.model.Company;
 import com.thoughtmechanix.eureka.services.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,51 +13,41 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/organizations/{organizationId}/assets")
+@RequestMapping("/v1/companys/{companyId}/assets")
 public class AssetServiceController {
 
     @Autowired
     AssetService assetService;
 
-    @GetMapping("/")
-    public ResponseEntity<List<Asset>> getAssets(@PathVariable("organizationId") String organizationId){
-        List<Asset> assets = assetService.getAssets(organizationId);
+    @RequestMapping(path = "/" , method = RequestMethod.GET)
+    public ResponseEntity<List<Asset>> getAssets(@PathVariable("companyId") String companyId){
+        List<Asset> assets = assetService.getAssetsByCompany(companyId);
         return ResponseEntity.ok(assets);
     }
 
-    @GetMapping("/{assetId}")
-    public ResponseEntity<Asset> getAsset(@PathVariable("organizationId") String organizationId,
-                                          @PathVariable("assetId") String assetId){
-        Asset asset = assetService.getAsset(organizationId, assetId);
+    @RequestMapping(path = "/{assetId}/{clientType}", method = RequestMethod.GET)
+    public ResponseEntity<Asset> getAsset(@PathVariable("companyId") String companyId,
+                                          @PathVariable("assetId") String assetId,
+                                          @PathVariable("clientType") String clientType){
 
-        if(asset == null){
-            asset = new Asset()
-                    .withAssetId(assetId)
-                    .withOrganizationId(organizationId)
-                    .withAssetName("Default House")
-                    .withAssetType(AssetType.Tangible)
-                    .withComment("Default Comment");
-            assetService.createAsset(asset);
-        }
-        return ResponseEntity.ok(asset);
+        return ResponseEntity.ok(assetService.getAsset(companyId, assetId, clientType));
     }
 
-    @PostMapping("/")
-    public ResponseEntity<String> createAsset(@RequestBody Asset asset){
+    @RequestMapping(path = "/" , method = RequestMethod.POST)
+    public ResponseEntity<String> createAsset(@RequestBody Asset asset, @PathVariable("companyId") String companyId){
         String id = UUID.randomUUID().toString();
         asset.setAssetId(id);
         assetService.createAsset(asset);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                "http://{your.docker.ip}:8080/v1/" + asset.getOrganizationId() + "/eureka/" +
-                    id
-        );
+                "http://192.168.99.100:8080/v1/" + asset.getCompanyId() + "/assets/" +
+                    id);
     }
 
     @RequestMapping(path  = "/{assetId}", method = RequestMethod.PUT)
-    public ResponseEntity<Asset> updateAsset(@RequestBody Asset assetNew, @PathVariable("organizationId") String organizationId,
+    public ResponseEntity<Asset> updateAsset(@RequestBody Asset assetNew, @PathVariable("companyId") String companyId,
                                       @PathVariable("assetId") String assetId){
 
-        Asset asset = assetService.getAsset(organizationId, assetId);
+        Asset asset = assetService.getAsset(companyId, assetId, "discovery");
 
         if(asset == null){
             assetService.createAsset(assetNew);
@@ -70,10 +61,10 @@ public class AssetServiceController {
 
 
     @RequestMapping(path = "/{assetId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteAsset(@PathVariable("organizationId") String organizationId,
+    public ResponseEntity deleteAsset(@PathVariable("companyId") String companyId,
                                       @PathVariable("assetId") String assetId){
 
-        Asset asset = assetService.getAsset(organizationId, assetId);
+        Asset asset = assetService.getAsset(companyId, assetId, "rest");
 
         if(asset == null){
             return ResponseEntity.notFound().build();

@@ -1,18 +1,20 @@
 package com.thoughtmechanix.eureka.model;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "eureka")
+@Table(name = "assets")
 public class Asset implements Serializable {
 
     @Id
     @Column(name = "asset_id", nullable = false)
     private String assetId;
 
-    @Column(name = "organization_id", nullable = false)
-    private String organizationId;
+    @Column(name = "company_ids", nullable = false)
+    private String companyId;
 
     @Column(name = "asset_name", nullable = false)
     private String assetName;
@@ -23,6 +25,18 @@ public class Asset implements Serializable {
 
     @Column(name="comment")
     private String comment;
+
+    @Transient
+    private String companyName = StringUtils.EMPTY;
+
+    @Transient
+    private String yearEstablished = StringUtils.EMPTY;
+
+    @Transient
+    private Integer numOfEmployees = 0;
+
+    @Transient
+    private double capital = 0.0;
 
     public Asset() {
     }
@@ -35,12 +49,12 @@ public class Asset implements Serializable {
         this.assetId = assetId;
     }
 
-    public String getOrganizationId() {
-        return organizationId;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getAssetName() {
@@ -59,9 +73,44 @@ public class Asset implements Serializable {
         this.assetType = assetType;
     }
 
-    public Asset withOrganizationId(String organizationId){
-        this.setOrganizationId(organizationId);
-        return this;
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getYearEstablished() {
+        return yearEstablished;
+    }
+
+    public void setYearEstablished(String yearEstablished) {
+        this.yearEstablished = yearEstablished;
+    }
+
+    public Integer getNumOfEmployees() {
+        return numOfEmployees;
+    }
+
+    public void setNumOfEmployees(Integer numOfEmployees) {
+        this.numOfEmployees = numOfEmployees;
+    }
+
+    public double getCapital() {
+        return capital;
+    }
+
+    public void setCapital(double capital) {
+        this.capital = capital;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public Asset withAssetId(String assetId){
@@ -84,11 +133,29 @@ public class Asset implements Serializable {
         return this;
     }
 
-    public String getComment() {
-        return comment;
+    public Asset withCompanyId(String companyId){
+        this.setCompanyId(companyId);
+        return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public Asset withCompanyName(String companyName){
+        this.setCompanyName(companyName);
+        return this;
     }
+
+    public Asset withYearEstablished(String year){
+        this.setYearEstablished(year);
+        return this;
+    }
+
+    public Asset withNumOfEmployees(int numOfEmployees){
+        this.setNumOfEmployees(numOfEmployees);
+        return this;
+    }
+
+    public Asset withCapital(double capital){
+        this.setCapital(capital);
+        return this;
+    }
+
 }

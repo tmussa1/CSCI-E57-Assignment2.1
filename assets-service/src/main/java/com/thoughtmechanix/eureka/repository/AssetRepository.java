@@ -10,9 +10,9 @@ import java.util.List;
 public interface AssetRepository extends CrudRepository<Asset, String> {
 
     //I did contains because if the user had a typo, it will still find it
-    public List<Asset>  findAllByOrganizationIdContains(String organizationId);
+    public List<Asset>  findAllByCompanyId(String companyId);
 
-    public Asset findByOrganizationIdAndAssetId(String organizationId, String assetId);
+    public Asset findByCompanyIdAndAssetId(String companyId, String assetId);
 
 
 }

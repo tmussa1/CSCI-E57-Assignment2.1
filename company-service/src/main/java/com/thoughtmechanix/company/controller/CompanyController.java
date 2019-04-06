@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value="/v1/company")
 public class CompanyController {
@@ -14,7 +16,7 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @GetMapping(value="/{companyId}")
+    @RequestMapping(path="/{companyId}", method=RequestMethod.GET)
     public ResponseEntity<Company> getCompany(@PathVariable("companyId") String companyId){
         Company company = companyService.getCompany(companyId);
 
@@ -24,7 +26,13 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @PostMapping(value="/{companyId}")
+    @RequestMapping(path="/", method=RequestMethod.GET)
+    public ResponseEntity<List<Company>> getAllCompanies(){
+
+        return ResponseEntity.ok(companyService.getAllCompanies());
+    }
+
+    @RequestMapping(path="/", method = RequestMethod.POST)
     public ResponseEntity addCompany(@RequestBody Company company){
         try{
             //I accounted for DB not being available for whatever reason
@@ -38,7 +46,7 @@ public class CompanyController {
         }
     }
 
-    @PutMapping(value="/{companyId}")
+    @RequestMapping(path="/{companyId}", method = RequestMethod.PUT)
     public ResponseEntity updateCompany(@PathVariable("companyId") String companyId, @RequestBody Company companyNew){
         Company companyOld = companyService.getCompany(companyId);
 
@@ -55,7 +63,7 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping(value = "/{companyId}")
+    @RequestMapping(path = "/{companyId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteCompany(@PathVariable("companyId") String companyId){
 
         //It may not be found or some DB error hence the try/catch

@@ -1,6 +1,6 @@
 version: '2'
 services:
-  eurekasvr:
+  eurekaserver:
       image: tofikmussa/eurekasvr:assignment2.1
       ports:
         - "8761:8761"
@@ -9,7 +9,7 @@ services:
       ports:
         - "8888:8888"
       environment:
-        EUREKASERVER_URI: "http://eurekasvr:8761/eureka"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         EUREKASERVER_PORT: "8761"
   database:
       image: postgres:9.5
@@ -27,7 +27,7 @@ services:
         PROFILE: "default"
         SERVER_PORT: "8080"
         CONFIGSERVER_URI: "http://confsvr:8888"
-        EUREKASERVER_URI: "http://eurekasvr:8761/eureka"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         EUREKASERVER_PORT: "8761"
         CONFIGSERVER_PORT:   "8888"
         DATABASESERVER_PORT: "5432"
@@ -39,7 +39,7 @@ services:
         PROFILE: "default"
         SERVER_PORT: "8081"
         CONFIGSERVER_URI: "http://confsvr:8888"
-        EUREKASERVER_URI: "http://eurekasvr:8761/eureka/"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         EUREKASERVER_PORT: "8761"
         CONFIGSERVER_PORT:   "8888"
         DATABASESERVER_PORT: "5432"
@@ -51,7 +51,7 @@ services:
         PROFILE: "default"
         SERVER_PORT: "8082"
         CONFIGSERVER_URI: "http://confsvr:8888"
-        EUREKASERVER_URI: "http://eurekasvr:8761/eureka/"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         EUREKASERVER_PORT: "8761"
         CONFIGSERVER_PORT:   "8888"
         DATABASESERVER_PORT: "5432"

@@ -1,9 +1,9 @@
 #!/bin/sh
 
 echo "********************************************************"
-echo "eurekasvr starting on port $EUREKASERVER_PORT"
+echo "eurekaserver starting on port $EUREKASERVER_PORT"
 echo "********************************************************"
-while ! `nc -z eurekasvr $EUREKASERVER_PORT `; do sleep 3; done
+while ! `nc -z eurekaserver $EUREKASERVER_PORT `; do sleep 3; done
 echo ">>>>>>>>>>>> Eureka Server has started"
 
 echo "********************************************************"
