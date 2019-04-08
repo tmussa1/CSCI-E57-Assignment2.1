@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/v1/company")
+@RequestMapping(value="v1/companys")
 public class CompanyController {
 
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(path="/{companyId}", method=RequestMethod.GET)
+    @RequestMapping(value="/{companyId}", method=RequestMethod.GET)
     public ResponseEntity<Company> getCompany(@PathVariable("companyId") String companyId){
         Company company = companyService.getCompany(companyId);
 
@@ -26,16 +26,17 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @RequestMapping(path="/", method=RequestMethod.GET)
+    @RequestMapping(value="/", method=RequestMethod.GET)
     public ResponseEntity<List<Company>> getAllCompanies(){
 
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 
-    @RequestMapping(path="/", method = RequestMethod.POST)
-    public ResponseEntity addCompany(@RequestBody Company company){
+    @RequestMapping(value="/{companyId}", method = RequestMethod.POST)
+    public ResponseEntity addCompany(@PathVariable("companyId") String companyId, @RequestBody Company company){
         try{
             //I accounted for DB not being available for whatever reason
+            company.setCompanyId(companyId);
             companyService.addCompany(company);
 
             return ResponseEntity.ok().build();
@@ -46,7 +47,7 @@ public class CompanyController {
         }
     }
 
-    @RequestMapping(path="/{companyId}", method = RequestMethod.PUT)
+    @RequestMapping(value="/{companyId}", method = RequestMethod.PUT)
     public ResponseEntity updateCompany(@PathVariable("companyId") String companyId, @RequestBody Company companyNew){
         Company companyOld = companyService.getCompany(companyId);
 

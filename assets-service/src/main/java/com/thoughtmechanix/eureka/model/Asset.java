@@ -3,17 +3,16 @@ package com.thoughtmechanix.eureka.model;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "assets")
-public class Asset implements Serializable {
+@Table(name = "assets_table")
+public class Asset{
 
     @Id
     @Column(name = "asset_id", nullable = false)
     private String assetId;
 
-    @Column(name = "company_ids", nullable = false)
+    @Column(name = "company_id", nullable = false)
     private String companyId;
 
     @Column(name = "asset_name", nullable = false)

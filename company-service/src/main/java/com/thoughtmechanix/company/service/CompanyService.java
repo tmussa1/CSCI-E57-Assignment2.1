@@ -25,8 +25,6 @@ public class CompanyService {
     }
 
     public Company addCompany(Company company){
-
-        company.setCompanyId(UUID.randomUUID().toString());
         return companyRepository.save(company);
     }
 

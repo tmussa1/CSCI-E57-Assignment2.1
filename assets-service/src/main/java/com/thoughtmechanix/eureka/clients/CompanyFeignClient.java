@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("company-service")
 public interface CompanyFeignClient {
 
-    @RequestMapping(method = RequestMethod.GET, value="/v1/company/{companyId}", consumes="application/json")
+    @RequestMapping(method = RequestMethod.GET, value="/v1/companys/{companyId}", consumes="application/json")
     public Company getCompany(@PathVariable("companyId") String companyId);
 }

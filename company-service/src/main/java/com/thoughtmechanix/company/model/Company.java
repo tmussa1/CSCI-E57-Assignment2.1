@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
-@Table(name = "companys" , schema="assets_service_db")
+@Table(name = "companys_table")
 @Entity
 public class Company {
 

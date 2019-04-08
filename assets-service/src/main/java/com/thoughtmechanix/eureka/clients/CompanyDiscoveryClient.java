@@ -26,7 +26,7 @@ public class CompanyDiscoveryClient {
 
         StringBuilder uri = new StringBuilder();
         uri.append(instances.get(0).getUri().toString());
-        uri.append("/v1/company/");
+        uri.append("/v1/companys/");
         uri.append(companyId);
 
        return restTemplate.exchange(uri.toString(), GET, null, Company.class, companyId).getBody();

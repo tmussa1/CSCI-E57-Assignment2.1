@@ -13,7 +13,7 @@ public class CompanyRestClient {
     private RestTemplate restTemplate;
 
     public Company getCompanyRestTemplate(String companyId){
-        return restTemplate.exchange("http://company-service/v1/company/{companyId}",
+        return restTemplate.exchange("http://company-service/v1/companys/{companyId}",
                 HttpMethod.GET, null, Company.class, companyId).getBody();
     }
 }
